@@ -30,7 +30,7 @@ PARAMS: Dict[str, str] = {
     "allowCountries": "US",
 }
 
-user_name = os.environ["Sender_Name"]
+user_name = os.environ["Receiver_Name"]
 
 
 def msg_body_gen(games_table):
