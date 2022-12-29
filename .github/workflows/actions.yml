@@ -24,9 +24,9 @@ jobs:
 
       - name: execute py script # run main.py
         env:
-          Sender_Email: ${{ secrets.SOME_SECRET }}
-          Sender_Password: ${{ secrets.SOME_SECRET }}
-          Receiver_Email: ${{ secrets.SOME_SECRET }}
+          Sender_Email: ${{ secrets.Sender_Email }}
+          Sender_Password: ${{ secrets.Sender_Password }}
+          Receiver_Email: ${{ secrets.Receiver_Email }}
         run: python main.py
 
       - name: commit files
