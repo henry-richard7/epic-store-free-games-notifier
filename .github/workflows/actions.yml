@@ -27,6 +27,7 @@ jobs:
           Sender_Email: ${{ secrets.Sender_Email }}
           Sender_Password: ${{ secrets.Sender_Password }}
           Receiver_Email: ${{ secrets.Receiver_Email }}
+          Receiver_Name: ${{ secrets.Receiver_Name }}
         run: python main.py
 
       - name: commit files
