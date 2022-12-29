@@ -76,6 +76,9 @@ def msg_body_gen(games_table):
 
 
 def get_free_epic_games():
+    # Truncate the table on every monday
+    if datetime.date.today().strftime('%A') == "Monday":
+        truncate_table()
     response = requests.get(EPIC_API, params=PARAMS)
     tables_html = ""
     config_parser = configparser.ConfigParser()
