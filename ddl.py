@@ -12,6 +12,13 @@ def create_table():
     """)
     conn.close()
 
+def truncate_table():
+    sqlite_db = "games.db"
+    conn = sqlite3.connect(sqlite_db)
+    query = "Truncate TABLE alerted_games"
+    conn.execute(query)
+    conn.commit()
+    conn.close()
 
 def insert_query(game_name):
     sqlite_db = "games.db"
