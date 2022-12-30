@@ -1,6 +1,7 @@
 import configparser
+import datetime
 import os
-
+import json
 from ddl import *
 from dateutil import parser
 from typing import Dict
@@ -23,6 +24,7 @@ logger_file_handler.setFormatter(formatter)
 logger.addHandler(logger_file_handler)
 
 EPIC_API: str = "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions"
+TELEGRAM_API = os.environ["TELEGRAM_API"]
 
 PARAMS: Dict[str, str] = {
     "locale": "en-US",
@@ -31,6 +33,36 @@ PARAMS: Dict[str, str] = {
 }
 
 user_name = os.environ["Receiver_Name"]
+
+
+def telegram_alert(game_img, game_name, start_date, end_date, game_url):
+    response = requests.post(
+        url=f'https://api.telegram.org/bot{TELEGRAM_API}/sendMessage',
+        data={
+            "chat_id": 616756902,
+            "parse_mode": "markdown",
+            "text": f"""[Free Game Today]({game_img})
+Title: {game_name}
+
+Offer Start: {start_date}
+
+Offer End: {end_date}
+            """.strip(),
+            "reply_markup": json.dumps({
+                "inline_keyboard": [
+                    [
+                        {
+                            "text": "Claim Now",
+                            "url": f"{game_url}"
+                        },
+                    ]
+                ]
+            })
+        }
+
+    ).status_code
+
+    return True if response == 200 else False
 
 
 def msg_body_gen(games_table):
@@ -127,6 +159,8 @@ def get_free_epic_games():
                                 </tr>
                                 """
                 insert_query(game_name)
+                telegram_alert(game_img, game_name, start_date, end_date,
+                               f"https://www.epicgames.com/en-US/p/{game['productSlug']}")
                 logger.info(f'Title: {game_name} Offer Start: {start_date} Offer End: {end_date}')
             else:
                 logger.info(f'Title: {game_name} Not A Free Game.')

@@ -28,6 +28,7 @@ jobs:
           Sender_Password: ${{ secrets.Sender_Password }}
           Receiver_Email: ${{ secrets.Receiver_Email }}
           Receiver_Name: ${{ secrets.Receiver_Name }}
+          TELEGRAM_API: ${{ secrets.TELEGRAM_API }}
         run: python main.py
 
       - name: commit files
