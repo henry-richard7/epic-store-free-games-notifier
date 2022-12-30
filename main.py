@@ -25,6 +25,7 @@ logger.addHandler(logger_file_handler)
 
 EPIC_API: str = "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions"
 TELEGRAM_API = os.environ["TELEGRAM_API"]
+TELEGRAM_CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 PARAMS: Dict[str, str] = {
     "locale": "en-US",
@@ -39,7 +40,7 @@ def telegram_alert(game_img, game_name, start_date, end_date, game_url):
     response = requests.post(
         url=f'https://api.telegram.org/bot{TELEGRAM_API}/sendMessage',
         data={
-            "chat_id": 616756902,
+            "chat_id": TELEGRAM_CHAT_ID,
             "parse_mode": "markdown",
             "text": f"""[Free Game Today]({game_img})
 Title: {game_name}
