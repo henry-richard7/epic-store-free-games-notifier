@@ -4,8 +4,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
-email = os.environ["Sender_Email"]
-password = os.environ["Sender_Password"]
+email = os.environ["SENDER_EMAIL"]
+password = os.environ["SENDER_PASSWORD"]
 
 
 def send_email(to_email, email_subject, body, file_=None, fileName=""):

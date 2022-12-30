@@ -32,7 +32,7 @@ PARAMS: Dict[str, str] = {
     "allowCountries": "US",
 }
 
-user_name = os.environ["Receiver_Name"]
+user_name = os.environ["RECEIVER_NAME"]
 
 
 def telegram_alert(game_img, game_name, start_date, end_date, game_url):
@@ -171,7 +171,7 @@ def get_free_epic_games():
 
     if tables_html != "":
         print("Sending Mail")
-        send_email(os.environ["Receiver_Email"], "[Epic Games Store] Free Games", msg_body_gen(tables_html))
+        send_email(os.environ["RECEIVER_EMAIL"], "[Epic Games Store] Free Games", msg_body_gen(tables_html))
 
 
 get_free_epic_games()

@@ -24,10 +24,10 @@ jobs:
 
       - name: execute py script # run main.py
         env:
-          Sender_Email: ${{ secrets.Sender_Email }}
-          Sender_Password: ${{ secrets.Sender_Password }}
-          Receiver_Email: ${{ secrets.Receiver_Email }}
-          Receiver_Name: ${{ secrets.Receiver_Name }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+          RECEIVER_NAME: ${{ secrets.RECEIVER_NAME }}
           TELEGRAM_API: ${{ secrets.TELEGRAM_API }}
         run: python main.py
 
