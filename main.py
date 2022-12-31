@@ -116,7 +116,11 @@ def get_free_epic_games():
     tables_html = ""
     config_parser = configparser.ConfigParser()
     config_parser.read("config.ini")
+    
     time_zone = config_parser["TIMEZONE"]["timezone"]
+    email_enabled = config_parser.getboolean("ALERT", "EMAIL")
+    telegram_enabled = config_parser.getboolean("ALERT", "TELEGRAM")
+    
     local_tz = pytz.timezone(time_zone)
 
     for game in response.json()["data"]["Catalog"]["searchStore"]["elements"]:
@@ -139,30 +143,35 @@ def get_free_epic_games():
                     game_url = f'<a href = "https://www.epicgames.com/en-US/p/{game["productSlug"]}"> Claim Now </a>'
                 except KeyError as e:
                     game_url = f'URL NOT AVAILABLE.'
-
-                tables_html += f"""
-                                <tr>
-                                    <td>
-                                        <img src="{game_img}" height="150" width="100">
-                                    </td>
-                                    <td>
-                                        {game_name}
-                                    </td>
-                                     <td>
-                                        {start_date}
-                                    </td>
-                                    <td>
-                                        {end_date}
-                                    </td>
-                                     <td>
-                                        {game_url}
-                                     </td>
-                                </tr>
-                                """
-                insert_query(game_name)
-                telegram_alert(game_img, game_name, start_date, end_date,
+                    
+                if email_enabled:
+                    tables_html += f"""
+                                    <tr>
+                                        <td>
+                                            <img src="{game_img}" height="150" width="100">
+                                        </td>
+                                        <td>
+                                            {game_name}
+                                        </td>
+                                         <td>
+                                            {start_date}
+                                        </td>
+                                        <td>
+                                            {end_date}
+                                        </td>
+                                         <td>
+                                            {game_url}
+                                         </td>
+                                    </tr>
+                                    """
+                    
+                if telegram_enabled:
+                    telegram_alert(game_img, game_name, start_date, end_date,
                                f"https://www.epicgames.com/en-US/p/{game['productSlug']}")
+                    
+                insert_query(game_name)
                 logger.info(f'Title: {game_name} Offer Start: {start_date} Offer End: {end_date}')
+                
             else:
                 logger.info(f'Title: {game_name} Not A Free Game.')
                 continue
