@@ -12,3 +12,5 @@ A python script that uses github actions to notify user about free games in Epic
   * <b>SENDER_PASSWORD:</b> Sender Email's Password.
   * <b>TELEGRAM_API:</b> Telegram Bot API Key.
   * <b>TELEGRAM_CHAT_ID:</b> Your Telegram Chat ID.
+
+ * Set the required Timezone in config.ini (By Default it is set to Asia/Calcutta)
