@@ -15,7 +15,7 @@ def create_table():
 def truncate_table():
     sqlite_db = "games.db"
     conn = sqlite3.connect(sqlite_db)
-    query = "Truncate TABLE alerted_games"
+    query = "Delete from alerted_games"
     conn.execute(query)
     conn.commit()
     conn.close()
