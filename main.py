@@ -126,7 +126,7 @@ def get_free_epic_games():
     for game in response.json()["data"]["Catalog"]["searchStore"]["elements"]:
         game_name = game["title"]
         if game_name not in get_alerted_games():
-            if len(game["promotions"]["promotionalOffers"]) != 0:
+            if game.get("promotions") and len(game["promotions"]["promotionalOffers"]) != 0:
                 start_date = parser.parse(
                     game["promotions"]["promotionalOffers"][0]["promotionalOffers"][0]['startDate'])
                 start_date = start_date.replace(tzinfo=pytz.utc).astimezone(local_tz)
